@@ -18,6 +18,11 @@ RUN chmod +x ./build.sh && \
 VOLUME ["/firebird"]
 
 EXPOSE 3050/tcp
+EXPOSE 3080/tcp 
+
+
+COPY rfunc.so ${PREFIX}/UDF/rfunc.so
+RUN chmod +x ${PREFIX}/UDF/rfunc.so
 
 COPY docker-entrypoint.sh ${PREFIX}/docker-entrypoint.sh
 RUN chmod +x ${PREFIX}/docker-entrypoint.sh

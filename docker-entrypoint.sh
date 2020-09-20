@@ -83,6 +83,8 @@ if [[ ! -e "${VOLUME}/etc/" ]]; then
     if [[ ${EnableWireCrypt} == 'true' ]]; then
         confSet WireCrypt "enabled"
     fi
+    confSet ExternalFileAccess "Restrict /firebird/data"
+    confSet RemoteAuxPort "3080"
 fi
 
 if [ ! -f "${VOLUME}/system/security3.fdb" ]; then
