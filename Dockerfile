@@ -5,8 +5,12 @@ LABEL maintainer="jacob.alberty@foundigital.com"
 ENV PREFIX=/usr/local/firebird
 ENV VOLUME=/firebird
 ENV DEBIAN_FRONTEND noninteractive
-ENV FBURL=https://github.com/FirebirdSQL/firebird/releases/download/R3_0_6/Firebird-3.0.6.33328-0.tar.bz2
+ENV FBURL=https://github.com/FirebirdSQL/firebird/releases/download/R3_0_7/Firebird-3.0.7.33374-0.tar.bz2
 ENV DBPATH=/firebird/data
+
+COPY pre_build /home/pre_build
+COPY post_build /home/post_build
+RUN chmod -R +x /home/post_build /home/pre_build
 
 COPY build.sh ./build.sh
 
@@ -36,4 +40,4 @@ HEALTHCHECK CMD ${PREFIX}/docker-healthcheck.sh || exit 1
 
 ENTRYPOINT ["/usr/local/firebird/docker-entrypoint.sh"]
 
-CMD ["/usr/local/firebird/bin/fbguard"]
+CMD ["firebird"]

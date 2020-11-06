@@ -17,6 +17,12 @@ apt-get install -qy --no-install-recommends \
     libtommath-dev \
     make \
     zlib1g-dev
+if [ -d "/home/pre_build/$(dpkg --print-architecture)" ]; then
+    find "/home/pre_build/$(dpkg --print-architecture)" -type f -exec '{}' \;
+fi
+if [ -d "/home/pre_build/all" ]; then
+    find "/home/pre_build/all" -type f -exec '{}' \;
+fi
 mkdir -p /home/firebird
 cd /home/firebird
 curl -L -o firebird-source.tar.bz2 -L \
@@ -34,6 +40,12 @@ make -j${CPUC}
 make silent_install
 cd /
 rm -rf /home/firebird
+if [ -d "/home/post_build/$(dpkg --print-architecture)" ]; then
+    find "/home/post_build/$(dpkg --print-architecture)" -type f -exec '{}' \;
+fi
+if [ -d "/home/post_build/all" ]; then
+    find "/home/post_build/all" -type f -exec '{}' \;
+fi
 find ${PREFIX} -name .debug -prune -exec rm -rf {} \;
 apt-get purge -qy --auto-remove \
     bzip2 \
